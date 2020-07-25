@@ -1,7 +1,7 @@
 {
   "name": "easy-pos",
   "productName": "EasyPOS",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A POS billing and inventory management software.",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
