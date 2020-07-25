@@ -147,3 +147,37 @@ app.on('activate', () => {
 });
 
 app.allowRendererProcessReuse = false;
+
+autoUpdater.on('checking-for-update', () => {
+  console.log('Checking for update...');
+});
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+autoUpdater.on('update-available', (_info) => {
+  console.log('Update available.');
+});
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+autoUpdater.on('update-not-available', (_info) => {
+  console.log('Update not available.');
+});
+autoUpdater.on('error', (err) => {
+  console.log(`Error in auto-updater. ${err}`);
+});
+autoUpdater.on('download-progress', (progressObj) => {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  let log_message = `Download speed: ${progressObj.bytesPerSecond}`;
+  log_message = `${log_message} - Downloaded ${progressObj.percent}%`;
+  // eslint-disable-next-line prettier/prettier
+  log_message = `${log_message} (${progressObj.transferred}/${progressObj.total})`;
+  console.log(log_message);
+});
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+autoUpdater.on('update-downloaded', (_ev, _info) => {
+  // Wait 5 seconds, then quit and install
+  // In your application, you don't need to wait 5 seconds.
+  // You could call autoUpdater.quitAndInstall(); immediately
+  console.log('Update downloaded');
+
+  setTimeout(() => {
+    autoUpdater.quitAndInstall();
+  }, 5000);
+});
